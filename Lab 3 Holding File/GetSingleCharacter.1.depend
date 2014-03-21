@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1394666971 source:c:\users\lauri\documents\codeblocksprojects1113\getsinglecharacter.1\main.cpp
+	<iostream>
+	<string>
+	<cctype>
+

@@ -1,0 +1,177 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+#include <sstream>
+#include <cmath>
+#include <climits>
+
+using std::string;
+using std::cout;
+using std::cin;
+using std::endl;
+
+
+class UserInputHandler {
+public:  
+  UserInputHandler(); // default constructor
+  UserInputHandler ()//how to initialize in here, which to use? all?
+  char GetSingleCharacter(string str_ = "");// regular funtions
+  int GetInteger(int int_min_ = INT_MIN, int int_max_ = INT_MAX);
+  double GetDouble();
+  bool GetBoolean();
+  string GetString(int max_length_ = -1, bool empty_okay_ = true);
+  void SetInvalidChar(string invalid_char_);
+  string GetInvalidChar() const;
+  void SetCharNotAllowed(string char_not_allowed_);
+  string GetCharNotAllowed() const;
+  void SetInvalidInt(string invalid_int_);
+  string GetInvalidInt() const;
+  void SetLowInt(string low_int_);
+  string GetLowInt() const;
+  void SetHighInt(string high_int_);
+  string GetHighInt() const;
+  void SetInvalidDouble(string invalid_double_);
+  string GetInvalidDouble() const;
+  void SetInvalidBool(string invalid_bool_);
+  string GetInvalidBool() const;
+  void SetTooLongString (string too_long_string_);
+  string GetTooLongString() const;
+  void SetEmptyString(empty_string_);
+  string GetEmptyString() const;
+  
+private:  
+  string invalid_char_;
+  string char_not_allowed_;
+  string invalid_int_;
+  string low_int_;
+  string high_int_;
+  string invalid_double_;
+  string invalid_bool_;
+  string too_long_string_;
+  string empty_string_;
+};
+
+
+
+
+
+
+int main(){
+
+}
+bool UserInputHandler::GetBoolean() {
+   string user_string_;
+  while (true) {
+    cin >> user_string_;
+    for (int i = 0; i < user_string_.length(); i++) {
+      user_string_[i] = toupper(user_string_[i]);
+    }
+    if (user_string_ == "T" || user_string_ == "TRUE") {
+      cout << "Success " << user_string_;  // still needs while loop // maybe use cin(input_is_bool_)?
+      return true;
+    } else if (user_string_ == "F" || user_string_ == "FALSE") {
+      cout << "Success " << user_string_;
+    } else {
+      cout << "Input is not a bool " << endl;
+      cout << "Please enter T, F, TRUE or FALSE ";
+      cout << "Try again: ";
+    }
+  }
+}
+
+string UserInputHandler::GetString(int max_length_ , bool empty_okay_ ) {
+  string user_string_;
+  while (true) {
+  getline(cin, user_string_);
+  if (!empty_okay_ && user_string_ == ""){
+    cout << "empty_string_ error" << endl;
+    cout << "Try again" << endl;
+    continue;
+  }
+  if (max_length_ >= 0){
+    if (user_string_.length() > max_length_) {
+      cout << "string too long" << endl;
+      cout << "Try again:" << endl;
+      continue;
+    }
+  }
+  cout << user_string_;
+  return user_string_;
+  }
+}
+
+double UserInputHandler::GetDouble() {
+cout << "Please enter a double: ";
+  double user_double_ = 22.00;
+  while (true){
+  cin >> user_double_ ;
+  if (cin) {
+
+    cout << "Success!";
+    cout << user_double_;
+
+    return user_double_;
+   } else {
+    cout << "Invalid double " << endl;
+    cout << "Try again " << endl;
+    cin.clear();
+   }
+  }
+}
+
+int UserInputHandler::GetInteger(int min_int_, int max_int_) {
+  cout << "Please enter an integer ";
+  int user_int_;
+  bool user_success_ = false;
+  while (user_success_ == false) {
+   cin >> user_int_;
+    if (cin){
+      if (user_int_ < min_int_) {
+        cout << "Integer too low " << endl;
+        cout << "Try again " << endl;
+        } else if (user_int_ > max_int_) {
+        cout << "Integer too high " << endl;
+        cout << "Try again " << endl;
+        } else {
+        cout << user_int_;
+        user_success_ = true;
+        return user_int_;
+      }
+    } else {
+      cout << "Input is not an integer " << endl;
+      cout << "Try again: " << endl;
+      cin.clear();
+
+    }
+  }
+  return 0;
+}
+
+char UserInputHandler::GetSingleCharacter(string str_) {
+  char one_char_;
+  string input_;
+  bool input_success_;
+  input_success_ = false;
+  cout << "Guess a character in the string:";
+  while (input_success_ == false) {
+    cin >> input_;
+    if (input_.length() > 1 || input_.length() < 1){
+      cout << "Input is not a character " << endl;
+      cout << "Try again " << endl;
+    } else if (str_.find(input_) == string::npos) {
+      cout << "Incorrect character" << endl;
+      cout << "Try again" << endl;
+    } else {
+    one_char_ = input_[0];
+    cout << one_char_;
+    input_success_ = true;
+    }
+  }
+  return one_char_;
+
+}
+
+
+
+
+
